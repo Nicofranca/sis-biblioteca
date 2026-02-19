@@ -1,4 +1,4 @@
 package com.weg.sis_biblioteca.dao;
 
-public class EmrpestimoDAO {
+public class EmprestimoDAO {
 }
