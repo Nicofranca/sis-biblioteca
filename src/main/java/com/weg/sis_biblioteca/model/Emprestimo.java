@@ -12,6 +12,17 @@ public class Emprestimo {
     public Emprestimo() {
     }
 
+    /*
+CREATE TABLE emprestimo (
+id BIGINT AUTO_INCREMENT PRIMARY KEY,
+livro_id BIGINT NOT NULL,
+usuario_id BIGINT NOT NULL,
+data_emprestimo DATE NOT NULL,
+data_devolucao DATE,
+FOREIGN KEY (livro_id) REFERENCES livro(id),
+FOREIGN KEY (usuario_id) REFERENCES usuario(id)
+ */
+
     public Emprestimo(int livroId, int usuarioID, LocalDate dataEmprestimo, LocalDate dataDevolucao) {
         this.livroId = livroId;
         this.usuarioID = usuarioID;
