@@ -24,7 +24,7 @@ public class UsuarioController {
     }
 
     @GetMapping
-    public List<Usuario> findAll(){
+    public List<UsuarioResponseDto> findAll(){
         return service.findAll();
     }
 

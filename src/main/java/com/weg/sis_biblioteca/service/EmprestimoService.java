@@ -1,6 +1,9 @@
 package com.weg.sis_biblioteca.service;
 
+import com.weg.sis_biblioteca.controller.dto.emprestimo.EmprestimoRequestDto;
+import com.weg.sis_biblioteca.controller.dto.emprestimo.EmprestimoResponseDto;
 import com.weg.sis_biblioteca.dao.EmprestimoDAO;
+import com.weg.sis_biblioteca.mapper.EmprestimoMapper;
 import com.weg.sis_biblioteca.model.Emprestimo;
 import org.springframework.stereotype.Service;
 
@@ -12,38 +15,57 @@ import java.util.List;
 @Service
 public class EmprestimoService {
     private EmprestimoDAO dao;
+    private EmprestimoMapper emprestimoMapper;
 
-    public EmprestimoService(EmprestimoDAO dao){
+    public EmprestimoService(EmprestimoDAO dao, EmprestimoMapper emprestimoMapper){
         this.dao = dao;
+        this.emprestimoMapper = emprestimoMapper;
     }
 
-    public Emprestimo save(Emprestimo emprestimo){
+    public EmprestimoResponseDto save(EmprestimoRequestDto emprestimoRequestDto){
         try {
+
+            Emprestimo emprestimo = emprestimoMapper.requestToEntity(emprestimoRequestDto);
+
             emprestimo.setDataEmprestimo(LocalDate.now());
 
-            return dao.save(emprestimo);
+            dao.save(emprestimo);
+
+            EmprestimoResponseDto emprestimoResponseDto = emprestimoMapper.responseToEntity(emprestimo);
+
+            return emprestimoResponseDto;
         } catch (SQLException | RuntimeException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public List<Emprestimo> findAll(){
+    public List<EmprestimoResponseDto> findAll(){
         try {
-            return dao.findAll();
+            return dao.findAll().stream()
+                    .map(emprestimoMapper::responseToEntity)
+                    .toList();
+
         } catch (SQLException | RuntimeException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public Emprestimo findById(int id){
+    public EmprestimoResponseDto findById(int id){
         try {
-            return dao.findById(id);
+
+            Emprestimo emprestimo = dao.findById(id);
+
+            EmprestimoResponseDto emprestimoResponseDto = emprestimoMapper.responseToEntity(emprestimo);
+
+            return emprestimoResponseDto;
         } catch (SQLException | RuntimeException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void update(int id, Emprestimo emprestimo){
+    public void update(int id, EmprestimoRequestDto emprestimoRequestDto){
+
+        Emprestimo emprestimo = emprestimoMapper.requestToEntity(emprestimoRequestDto);
         emprestimo.setId(id);
 
         try {

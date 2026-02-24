@@ -1,5 +1,7 @@
 package com.weg.sis_biblioteca.controller;
 
+import com.weg.sis_biblioteca.controller.dto.emprestimo.EmprestimoRequestDto;
+import com.weg.sis_biblioteca.controller.dto.emprestimo.EmprestimoResponseDto;
 import com.weg.sis_biblioteca.model.Emprestimo;
 import com.weg.sis_biblioteca.service.EmprestimoService;
 import org.springframework.web.bind.annotation.*;
@@ -17,23 +19,23 @@ public class EmprestimoController {
     }
 
     @PostMapping
-    public Emprestimo save(@RequestBody Emprestimo emprestimo){
-        return  service.save(emprestimo);
+    public EmprestimoResponseDto save(@RequestBody EmprestimoRequestDto emprestimoRequestDto){
+        return service.save(emprestimoRequestDto);
     }
 
     @GetMapping
-    public List<Emprestimo> findAll(){
+    public List<EmprestimoResponseDto> findAll(){
         return service.findAll();
     }
 
     @GetMapping("/{id}")
-    public Emprestimo findById(@PathVariable int id){
+    public EmprestimoResponseDto findById(@PathVariable int id){
         return service.findById(id);
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable int id, @RequestBody Emprestimo emprestimo){
-        service.update(id, emprestimo);
+    public void update(@PathVariable int id, @RequestBody EmprestimoRequestDto emprestimoRequestDto){
+        service.update(id, emprestimoRequestDto);
     }
 
     @DeleteMapping("/{id}")

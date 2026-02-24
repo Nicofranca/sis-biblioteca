@@ -36,9 +36,12 @@ public class LivroService {
         }
     }
 
-    public List<Livro> findAll(){
+    public List<LivroResponseDto> findAll(){
         try {
-            return livroDAO.findAll();
+            return livroDAO.findAll().stream()
+                    .map(livroMapper::responseToEntity)
+                    .toList();
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

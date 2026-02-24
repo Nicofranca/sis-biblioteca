@@ -36,9 +36,12 @@ public class UsuarioService {
         }
     }
 
-    public List<Usuario> findAll(){
+    public List<UsuarioResponseDto> findAll(){
         try {
-            return usuarioDAO.findAll();
+            return usuarioDAO.findAll().stream()
+                    .map(usuarioMapper::responseToEntity)
+                    .toList();
+
         } catch (SQLException | RuntimeException e) {
             throw new RuntimeException(e);
         }

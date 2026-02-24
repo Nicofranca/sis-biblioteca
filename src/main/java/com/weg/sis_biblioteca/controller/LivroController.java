@@ -25,7 +25,7 @@ public class LivroController {
     }
 
     @GetMapping
-    public List<Livro> findAll(){
+    public List<LivroResponseDto> findAll(){
         return livroService.findAll();
     }
 
