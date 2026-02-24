@@ -1,5 +1,7 @@
 package com.weg.sis_biblioteca.controller;
 
+import com.weg.sis_biblioteca.controller.dto.livro.LivroRequestDto;
+import com.weg.sis_biblioteca.controller.dto.livro.LivroResponseDto;
 import com.weg.sis_biblioteca.model.Livro;
 import com.weg.sis_biblioteca.service.LivroService;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +20,8 @@ public class LivroController {
 
 
     @PostMapping
-    public Livro save(@RequestBody Livro livro){
-        return livroService.save(livro);
+    public LivroResponseDto save(@RequestBody LivroRequestDto livroRequestDto){
+        return livroService.save(livroRequestDto);
     }
 
     @GetMapping
@@ -28,13 +30,13 @@ public class LivroController {
     }
 
     @GetMapping("/{id}")
-    public Livro findById(@PathVariable int id){
+    public LivroResponseDto findById(@PathVariable int id){
         return livroService.findById(id);
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable int id, @RequestBody Livro livro){
-        livroService.update(id, livro);
+    public void update(@PathVariable int id, @RequestBody LivroRequestDto livroRequestDto){
+        livroService.update(id, livroRequestDto);
     }
 
     @DeleteMapping("/{id}")

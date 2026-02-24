@@ -1,6 +1,9 @@
 package com.weg.sis_biblioteca.service;
 
+import com.weg.sis_biblioteca.controller.dto.livro.LivroRequestDto;
+import com.weg.sis_biblioteca.controller.dto.livro.LivroResponseDto;
 import com.weg.sis_biblioteca.dao.LivroDAO;
+import com.weg.sis_biblioteca.mapper.LivroMapper;
 import com.weg.sis_biblioteca.model.Livro;
 import org.springframework.stereotype.Service;
 
@@ -11,14 +14,23 @@ import java.util.List;
 public class LivroService {
 
     private LivroDAO livroDAO;
+    private LivroMapper livroMapper;
 
-    public LivroService(LivroDAO livroDAO){
+    public LivroService(LivroDAO livroDAO, LivroMapper livroMapper){
         this.livroDAO = livroDAO;
+        this.livroMapper = livroMapper;
     }
 
-    public Livro save(Livro livro){
+    public LivroResponseDto save(LivroRequestDto livroRequestDto){
         try {
-            return livroDAO.saveLivro(livro);
+
+            Livro livro = livroMapper.requestToEntity(livroRequestDto);
+
+            livroDAO.saveLivro(livro);
+
+            LivroResponseDto livroResponseDto = livroMapper.responseToEntity(livro);
+
+            return livroResponseDto;
         } catch (SQLException | RuntimeException e) {
             throw new RuntimeException(e);
         }
@@ -32,18 +44,25 @@ public class LivroService {
         }
     }
 
-    public Livro findById(int id){
+    public LivroResponseDto findById(int id){
         try {
-            return livroDAO.findById(id);
+            Livro livro = livroDAO.findById(id);
+
+            LivroResponseDto livroResponseDto = livroMapper.responseToEntity(livro);
+
+            return livroResponseDto;
         } catch (SQLException | RuntimeException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void update(int id, Livro livro){
+    public void update(int id, LivroRequestDto livroRequestDto){
         try {
 
+            Livro livro = livroMapper.requestToEntity(livroRequestDto);
+
             livro.setId(id);
+
             livroDAO.update(livro);
         } catch (SQLException | RuntimeException e) {
             throw new RuntimeException(e);
