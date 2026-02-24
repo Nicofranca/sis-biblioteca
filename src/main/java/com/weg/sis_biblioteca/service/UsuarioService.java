@@ -1,6 +1,9 @@
 package com.weg.sis_biblioteca.service;
 
+import com.weg.sis_biblioteca.controller.dto.usuario.UsuarioRequestDto;
+import com.weg.sis_biblioteca.controller.dto.usuario.UsuarioResponseDto;
 import com.weg.sis_biblioteca.dao.UsuarioDAO;
+import com.weg.sis_biblioteca.mapper.UsuarioMapper;
 import com.weg.sis_biblioteca.model.Usuario;
 import org.springframework.stereotype.Service;
 
@@ -11,14 +14,23 @@ import java.util.List;
 public class UsuarioService {
 
     private UsuarioDAO usuarioDAO;
+    private UsuarioMapper usuarioMapper;
 
-    public UsuarioService(UsuarioDAO usuarioDAO){
+    public UsuarioService(UsuarioDAO usuarioDAO, UsuarioMapper usuarioMapper){
         this.usuarioDAO = usuarioDAO;
+        this.usuarioMapper = usuarioMapper;
     }
 
-    public Usuario save(Usuario usuario){
+    public UsuarioResponseDto save(UsuarioRequestDto usuarioRequestDto){
         try {
-            return usuarioDAO.saveUsuario(usuario);
+
+            Usuario usuario = usuarioMapper.requestToEntity(usuarioRequestDto);
+
+            usuarioDAO.saveUsuario(usuario);
+
+            return usuarioMapper.responseToEntity(usuario);
+
+
         } catch (SQLException | RuntimeException e) {
             throw new RuntimeException(e);
         }
@@ -32,16 +44,25 @@ public class UsuarioService {
         }
     }
 
-    public Usuario findById(int id){
+    public UsuarioResponseDto findById(int id){
         try {
-            return usuarioDAO.findById(id);
+
+            Usuario usuario = usuarioDAO.findById(id);
+
+            UsuarioResponseDto usuarioResponseDto = usuarioMapper.responseToEntity(usuario);
+
+            return usuarioResponseDto;
+
         } catch (SQLException | RuntimeException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void update(int id, Usuario usuario){
+    public void update(int id, UsuarioRequestDto usuarioRequestDto){
         try {
+
+            Usuario usuario = usuarioMapper.requestToEntity(usuarioRequestDto);
+
             usuario.setId(id);
 
             usuarioDAO.update(usuario);

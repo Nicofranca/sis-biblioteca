@@ -1,5 +1,7 @@
 package com.weg.sis_biblioteca.controller;
 
+import com.weg.sis_biblioteca.controller.dto.usuario.UsuarioRequestDto;
+import com.weg.sis_biblioteca.controller.dto.usuario.UsuarioResponseDto;
 import com.weg.sis_biblioteca.model.Usuario;
 import com.weg.sis_biblioteca.service.UsuarioService;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +19,8 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public Usuario save(@RequestBody Usuario usuario){
-        return service.save(usuario);
+    public UsuarioResponseDto save(@RequestBody UsuarioRequestDto usuarioRequestDto){
+        return service.save(usuarioRequestDto);
     }
 
     @GetMapping
@@ -27,13 +29,13 @@ public class UsuarioController {
     }
 
     @GetMapping("/{id}")
-    public Usuario findById(@PathVariable int id){
+    public UsuarioResponseDto findById(@PathVariable int id){
         return service.findById(id);
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable int id, @RequestBody Usuario usuario){
-        service.update(id, usuario);
+    public void update(@PathVariable int id, @RequestBody UsuarioRequestDto usuarioRequestDto){
+        service.update(id, usuarioRequestDto);
     }
 
     @DeleteMapping("/{id}")

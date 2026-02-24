@@ -1,4 +1,4 @@
-package com.weg.sis_biblioteca.controller.mapper;
+package com.weg.sis_biblioteca.mapper;
 
 import com.weg.sis_biblioteca.controller.dto.emprestimo.EmprestimoRequestDto;
 import com.weg.sis_biblioteca.controller.dto.emprestimo.EmprestimoResponseDto;
