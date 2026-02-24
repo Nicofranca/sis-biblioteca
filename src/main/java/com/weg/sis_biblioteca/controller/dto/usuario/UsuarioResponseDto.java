@@ -1,0 +1,4 @@
+package com.weg.sis_biblioteca.controller.dto.usuario;
+
+public record UsuarioResponseDto() {
+}
