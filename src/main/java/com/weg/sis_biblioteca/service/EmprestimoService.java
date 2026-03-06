@@ -44,7 +44,6 @@ public class EmprestimoService {
             return dao.findAll().stream()
                     .map(emprestimoMapper::responseToEntity)
                     .toList();
-
         } catch (SQLException | RuntimeException e) {
             throw new RuntimeException(e);
         }

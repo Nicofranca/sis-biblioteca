@@ -4,6 +4,7 @@ import com.weg.sis_biblioteca.controller.dto.emprestimo.EmprestimoRequestDto;
 import com.weg.sis_biblioteca.controller.dto.emprestimo.EmprestimoResponseDto;
 import com.weg.sis_biblioteca.model.Emprestimo;
 import com.weg.sis_biblioteca.service.EmprestimoService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class EmprestimoController {
     }
 
     @PostMapping
-    public EmprestimoResponseDto save(@RequestBody EmprestimoRequestDto emprestimoRequestDto){
+    public EmprestimoResponseDto save(@Valid @RequestBody EmprestimoRequestDto emprestimoRequestDto){
         return service.save(emprestimoRequestDto);
     }
 
@@ -34,7 +35,7 @@ public class EmprestimoController {
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable int id, @RequestBody EmprestimoRequestDto emprestimoRequestDto){
+    public void update(@PathVariable int id, @Valid @RequestBody EmprestimoRequestDto emprestimoRequestDto){
         service.update(id, emprestimoRequestDto);
     }
 

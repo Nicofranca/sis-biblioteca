@@ -4,6 +4,7 @@ import com.weg.sis_biblioteca.controller.dto.livro.LivroRequestDto;
 import com.weg.sis_biblioteca.controller.dto.livro.LivroResponseDto;
 import com.weg.sis_biblioteca.model.Livro;
 import com.weg.sis_biblioteca.service.LivroService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +21,7 @@ public class LivroController {
 
 
     @PostMapping
-    public LivroResponseDto save(@RequestBody LivroRequestDto livroRequestDto){
+    public LivroResponseDto save(@Valid @RequestBody LivroRequestDto livroRequestDto){
         return livroService.save(livroRequestDto);
     }
 
@@ -35,7 +36,7 @@ public class LivroController {
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable int id, @RequestBody LivroRequestDto livroRequestDto){
+    public void update(@PathVariable int id, @Valid @RequestBody LivroRequestDto livroRequestDto){
         livroService.update(id, livroRequestDto);
     }
 

@@ -4,6 +4,7 @@ import com.weg.sis_biblioteca.controller.dto.usuario.UsuarioRequestDto;
 import com.weg.sis_biblioteca.controller.dto.usuario.UsuarioResponseDto;
 import com.weg.sis_biblioteca.model.Usuario;
 import com.weg.sis_biblioteca.service.UsuarioService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public UsuarioResponseDto save(@RequestBody UsuarioRequestDto usuarioRequestDto){
+    public UsuarioResponseDto save(@Valid @RequestBody UsuarioRequestDto usuarioRequestDto){
         return service.save(usuarioRequestDto);
     }
 
@@ -34,7 +35,7 @@ public class UsuarioController {
     }
 
     @PutMapping("/{id}")
-    public void update(@PathVariable int id, @RequestBody UsuarioRequestDto usuarioRequestDto){
+    public void update(@PathVariable int id, @Valid @RequestBody UsuarioRequestDto usuarioRequestDto){
         service.update(id, usuarioRequestDto);
     }
 
